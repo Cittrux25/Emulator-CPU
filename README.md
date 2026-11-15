@@ -1,4 +1,4 @@
-###Mini CPU Emulator
+### **Mini CPU Emulator**
 
 Un procesor simulat în C++ care rulează programe scrise într-un limbaj de asamblare inventat.
 
