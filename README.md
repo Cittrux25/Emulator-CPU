@@ -1,6 +1,8 @@
-# Nu primesc notă pentru că nu am pus titlu și descriere
+#Mini CPU Emulator
 
 ### Folosiți template-ul corespunzător grupei voastre!
+
+Un procesor simulat în C++ care rulează programe scrise într-un limbaj de asamblare inventat.
 
 | Laborant  | Link template                                |
 |-----------|----------------------------------------------|
@@ -33,7 +35,7 @@ O cerință nu se consideră îndeplinită dacă este realizată doar prin cod g
 
 ### Tema 0
 
-- [ ] Nume proiect (poate fi schimbat ulterior)
+- [X] Nume proiect (poate fi schimbat ulterior)
 - [ ] Scurtă descriere a temei alese, ce v-ați propus să implementați
 
 ## Tema 1
