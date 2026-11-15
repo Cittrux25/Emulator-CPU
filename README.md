@@ -1,6 +1,4 @@
-#Mini CPU Emulator
-
-### Folosiți template-ul corespunzător grupei voastre!
+###Mini CPU Emulator
 
 Un procesor simulat în C++ care rulează programe scrise într-un limbaj de asamblare inventat.
 
