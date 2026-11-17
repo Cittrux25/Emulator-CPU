@@ -9,6 +9,7 @@ int main() {
     reg.incrementPc();
     std::cout<<reg<<"\n";
     Instructions ins(OpCode::MOV, 0, 5);
+    std::cout << ins.getA() << " " << ins.getB() << "\n";
     std::cout<<ins<<"\n";
 
     Program prog;
