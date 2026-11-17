@@ -4,13 +4,13 @@
 
 #include "instruction.h"
 
-instructions::instructions(OpCode op, int x, int y):opcode(op), a(x), b(y) {}
+Instructions::Instructions(OpCode op, int x, int y):opcode(op), a(x), b(y) {}
 
-OpCode instructions::getOpCode() const {return opcode;}
-int instructions::getA() const {return a;}
-int instructions::getB() const {return b;}
+OpCode Instructions::getOpCode() const {return opcode;}
+int Instructions::getA() const {return a;}
+int Instructions::getB() const {return b;}
 
-std::string instructions::opcodeName() const {
+std::string Instructions::opcodeName() const {
     switch (opcode) {
         case OpCode::MOV: return "MOV";
         case OpCode::ADD: return "ADD";
@@ -22,7 +22,7 @@ std::string instructions::opcodeName() const {
     }
     return "";
 }
-std::ostream& operator<<(std::ostream& os, const instructions& ins) {
+std::ostream& operator<<(std::ostream& os, const Instructions& ins) {
     os<<ins.opcodeName()<<" "<<ins.a<<" "<<ins.b;
     return os;
 }

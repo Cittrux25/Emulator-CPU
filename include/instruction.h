@@ -10,15 +10,15 @@ enum class OpCode {
     MOV, ADD, DEC, JNZ, LOAD, STORE, HALT
 };
 
-class instructions {
+class Instructions {
     OpCode opcode;
     int a;
     int b;
     std::string opcodeName() const;
 public:
-    explicit instructions(OpCode op, int x=0, int y=0);
+    explicit Instructions(OpCode op, int x=0, int y=0);
     OpCode getOpCode() const;
     int getA() const;
     int getB() const;
-    friend std::ostream& operator<<(std::ostream& os, const instructions& in);
+    friend std::ostream& operator<<(std::ostream& os, const Instructions& in);
 };

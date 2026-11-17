@@ -65,7 +65,9 @@ add_library(${MAIN_LIBRARY_NAME} STATIC
         include/registers.h
         src/registers.cpp
         include/instruction.h
-        src/instruction.cpp)
+        src/instruction.cpp
+        include/program.h
+        src/program.cpp)
 
 # NOTE: update EXECUTABLE_NAME in .github/workflows/cmake.yml when changing name here
 add_executable(${MAIN_EXECUTABLE_NAME}
@@ -76,6 +78,7 @@ target_sources(${MAIN_LIBRARY_NAME}
         src/Example.cpp
         src/registers.cpp
         src/instruction.cpp
+        src/program.cpp
         src/internal/Detail.cpp
 )
 
