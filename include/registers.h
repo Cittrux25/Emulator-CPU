@@ -1,6 +1,8 @@
 //
 // Created by User on 11/16/2026.
 //
+#ifndef OOP_REGISTERS_H
+#define OOP_REGISTERS_H
 
 #pragma once
 #include <iostream>
@@ -16,8 +18,5 @@ public:
 
     friend std::ostream& operator<<(std::ostream& os, const Registers& reg);
 };
-
-#ifndef OOP_REGISTERS_H
-#define OOP_REGISTERS_H
 
 #endif //OOP_REGISTERS_H
