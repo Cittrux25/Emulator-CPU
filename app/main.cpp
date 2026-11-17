@@ -20,6 +20,6 @@ int main() {
     prog.add(Instructions(OpCode::HALT));
     std::cout<<prog;
 
-    std::cout<<static_cast<int>(ins.getOpCode())<<" "<<ins.getA()<<" "<<ins.getB()<<" "<<prog.at(0)<<" "<<prog.size()<<"\n"K;
+    std::cout<<static_cast<int>(ins.getOpCode())<<" "<<ins.getA()<<" "<<ins.getB()<<" "<<prog.at(0)<<" "<<prog.size()<<"\n";
     return 0;
 }
