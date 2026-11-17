@@ -9,7 +9,6 @@ int main() {
     reg.incrementPc();
     std::cout<<reg<<"\n";
     Instructions ins(OpCode::MOV, 0, 5);
-    std::cout << ins.getA() << " " << ins.getB() << "\n";
     std::cout<<ins<<"\n";
 
     Program prog;
@@ -21,5 +20,6 @@ int main() {
     prog.add(Instructions(OpCode::HALT));
     std::cout<<prog;
 
+    std::cout<<static_cast<int>(ins.getOpCode())<<" "<<ins.getA()<<" "<<ins.getB()<<" "<<prog.at(0)<<" "<<prog.size()<<"\n"K;
     return 0;
 }
