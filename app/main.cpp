@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include <vector>
 #include <cstddef>
 //#include "registers.h"
@@ -14,9 +15,14 @@ public:
     int get(int i) const;
     void set(int i, int v);
     void incrementPc();
+    int getPc() const;
+    void setPc(int value);
 
     friend std::ostream& operator<<(std::ostream& os, const Registers& reg);
 };
+
+int Registers::getPc()const {return pc;}
+void Registers::setPc(int value) {pc = value;};
 
 Registers::Registers(int startPc) :pc(startPc) {
     for (int i=0; i<4 ;i++) {r[i]=0;}
@@ -161,10 +167,91 @@ Memory& Memory::operator=(const Memory& other) {
     return *this;
 }
 
+class Cpu {
+    Registers regs;
+    Memory mem;
+    Program prog;
+    bool halted;
+    void execute (const Instructions& ins);
+
+public:
+    explicit Cpu(const Program& prog, std::size_t memorySize =16);
+    bool step();
+    void run(std::size_t maxSteps = 1000) {
+        std::size_t steps=0;
+        while (steps < maxSteps && step()) {
+            steps++;
+        }
+    }
+    bool isHalted() const;
+    int getRegister(int i) const;
+    friend std::ostream& operator<<(std::ostream& os, const Cpu& cpu);
+};
+
+Cpu::Cpu(const Program& p, std::size_t memorySize):regs(),mem(memorySize), prog(p) , halted(false){}
+void Cpu::execute(const Instructions& ins) {
+    int a=ins.getA();
+    int b=ins.getB();
+    switch (ins.getOpCode()) {
+        case OpCode::MOV:
+            regs.set(a,b);
+            regs.incrementPc();
+            break;
+        case OpCode::ADD:
+            regs.set(a,regs.get(a)+regs.get(b));
+            regs.incrementPc();
+            break;
+        case OpCode::DEC:
+            regs.set(a,regs.get(a)-1);
+            regs.incrementPc();
+            break;
+        case OpCode::JNZ:
+            if (regs.get(a)!=0) {
+                regs.setPc(b);
+            } else {
+                regs.incrementPc();
+            }
+            break;
+        case OpCode::LOAD:
+            regs.set(a,mem.read(static_cast<std::size_t>(b)));
+            regs.incrementPc();
+            break;
+        case OpCode::STORE:
+            mem.write(static_cast<std::size_t>(b),regs.get(a));
+            regs.incrementPc();
+            break;
+        case OpCode::HALT:
+            halted=true;
+            break;
+    }
+}
+bool Cpu::step() {
+    if (halted) {
+        return false;
+    }
+    std::size_t pc=static_cast<std::size_t>(regs.getPc());
+    if (pc>=prog.size()) {
+        halted=true;
+        return false;
+    }
+    execute(prog.at(pc));
+    return true;
+}
+bool Cpu::isHalted()const{return halted;}
+int Cpu::getRegister(int i)const{return regs.get(i);}
+std::ostream& operator<<(std::ostream& os, const Cpu& cpu) {
+    os<<"Registre: "<<cpu.regs<<"\n";
+    os<<"Memorie: "<<cpu.mem<<"\n";
+    os<<"Oprit: "<<(cpu.halted ? "da":"nu");
+    return os;
+}
+
 int main() {
     Registers reg;
     reg.set(0, 5);
     reg.incrementPc();
+    reg.setPc(3);
+    std::cout<<reg.get(0)<<" "<<reg.getPc()<<"\n";
     std::cout<<reg<<"\n";
     Instructions ins(OpCode::MOV, 0, 5);
     std::cout<<ins<<"\n";
@@ -175,19 +262,27 @@ int main() {
     prog.add(Instructions(OpCode::ADD, 1, 0));
     prog.add(Instructions(OpCode::DEC, 0));
     prog.add(Instructions(OpCode::JNZ, 0, 2));
+    prog.add(Instructions(OpCode::STORE, 1, 0));
+    prog.add(Instructions(OpCode::LOAD, 2, 0));
     prog.add(Instructions(OpCode::HALT));
     std::cout<<prog;
 
     std::cout<<static_cast<int>(ins.getOpCode())<<" "<<ins.getA()<<" "<<ins.getB()<<" "<<prog.at(0)<<" "<<prog.size()<<"\n";
 
-    Memory mem(8);
-    mem.write(0,15);
-    Memory copy=mem;
-    copy.write(0,15);
+   Cpu cpu(prog);
+    cpu.step();
+    std::cout<<cpu<<"\n";
+    cpu.run();
+    std::cout<<cpu<<"\n";
+    std::cout<<cpu.getRegister(1)<<" "<<cpu.isHalted()<<"\n";
+
+    Memory m(8);
+    m.write(0, 15);
+    Memory copy = m;
+    copy.write(0, 99);
     Memory other;
-    other=mem;
-    std::cout<<mem<<"\n"<<copy<<"\n"<<other<<"\n";
-    std::cout<<mem.read(0)<<"\n";
+    other = m;
+    std::cout << m << copy << other;
 
     return 0;
 }
