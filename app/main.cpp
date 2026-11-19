@@ -19,7 +19,7 @@ public:
     void setPc(int value);
 
     friend std::ostream& operator<<(std::ostream& os, const Registers& reg);
-}
+};
 
 int Registers::getPc()const {return pc;}
 void Registers::setPc(int value) {pc = value;}
@@ -42,7 +42,7 @@ std::ostream& operator<<(std::ostream& os, const Registers& reg) {
 
 enum class OpCode {
     MOV, ADD, DEC, JNZ, LOAD, STORE, HALT
-}
+};
 
 class Instructions {
     OpCode opcode;
@@ -55,7 +55,7 @@ public:
     int getA() const;
     int getB() const;
     friend std::ostream& operator<<(std::ostream& os, const Instructions& in);
-}
+};
 
 Instructions::Instructions(OpCode op, int x, int y):opcode(op), a(x), b(y) {}
 
@@ -89,7 +89,7 @@ public:
     const Instructions& at(std::size_t line) const;
     std::size_t size() const;
     friend std::ostream& operator<<(std::ostream& os, const Program& prog);
-}
+};
 
 Program::Program(const std::vector<Instructions>& instrs):code(instrs){}
 void Program::add(const Instructions& ins) {
@@ -118,7 +118,7 @@ public:
     int read(std::size_t addr) const;
     void write(std::size_t addr, int value);
     friend std::ostream& operator<<(std::ostream& os, const Memory& mem);
-}
+};
 
 Memory::Memory(std ::size_t n):cells(new int[n]()),size(n) {}
 Memory::~Memory() {
@@ -186,7 +186,7 @@ public:
     bool isHalted() const;
     int getRegister(int i) const;
     friend std::ostream& operator<<(std::ostream& os, const Cpu& cpu);
-}
+};
 
 Cpu::Cpu(const Program& p, std::size_t memorySize):regs(),mem(memorySize), prog(p) , halted(false){}
 void Cpu::execute(const Instructions& ins) {
