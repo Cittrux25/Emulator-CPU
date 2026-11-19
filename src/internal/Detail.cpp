@@ -1,5 +1,5 @@
 #include <iostream>
-#include "internal/Detail.h"
+#include "Detail.h"
 
 void Detail::f() const {
     std::cout << "private function f: " << x << "\n";
