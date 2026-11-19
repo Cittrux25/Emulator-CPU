@@ -62,16 +62,6 @@ include(cmake/RegisterTests.cmake)
 
 # always STATIC (simpler); TBD if we ever want dynamic for this; BUILD_SHARED_LIBS is for ext deps
 add_library(${MAIN_LIBRARY_NAME} STATIC
-        include/registers.h
-        src/registers.cpp
-        include/instruction.h
-        src/instruction.cpp
-        include/program.h
-        src/program.cpp
-        include/memory.h
-        src/memory.cpp
-        include/cpu.h
-        src/cpu.cpp)
 
 # NOTE: update EXECUTABLE_NAME in .github/workflows/cmake.yml when changing name here
 add_executable(${MAIN_EXECUTABLE_NAME}
@@ -80,9 +70,6 @@ add_executable(${MAIN_EXECUTABLE_NAME}
 target_sources(${MAIN_LIBRARY_NAME}
     PRIVATE
         src/Example.cpp
-        src/registers.cpp
-        src/instruction.cpp
-        src/program.cpp
         src/internal/Detail.cpp
 )
 
