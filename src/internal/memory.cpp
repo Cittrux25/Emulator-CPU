@@ -36,8 +36,9 @@ Memory::Memory(const Memory& other):cells(new int[other.size]()),size(other.size
         cells[i]=other.cells[i];
     }
 }
+
 Memory& Memory::operator=(const Memory& other) {
-    if (this!=&other) {
+    if (this==&other) {
         return *this;
     }
     int* newcells = new int[other.size];
