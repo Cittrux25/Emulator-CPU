@@ -1,8 +1,10 @@
 #include <iostream>
 #include <vector>
+#include <cstddef>
 //#include "registers.h"
 //#include "instruction.h"
 //#include "program.h"
+//#include "memory.h"
 
 class Registers {
     int r[4];
@@ -100,8 +102,64 @@ std::ostream& operator<<(std::ostream& os, const Program& prog) {
 };
 
 class Memory {
-
+    int* cells;
+    std::size_t size;
+public:
+    explicit Memory(std::size_t n=16);
+    Memory(const Memory& other);
+    Memory& operator=(const Memory& other);
+    ~Memory();
+    int read(std::size_t addr) const;
+    void write(std::size_t addr, int value);
+    friend std::ostream& operator<<(std::ostream& os, const Memory& mem);
 };
+
+Memory::Memory(std ::size_t n):cells(new int[n]()),size(n) {}
+Memory::~Memory() {
+    delete[] cells;
+}
+int Memory::read(std::size_t addr) const {
+    if (addr>=size) {
+        std::cerr<<"Adresa invalida: "<<addr<<"\n";
+        return 0;
+    }
+    return cells[addr];
+}
+
+void Memory::write(std::size_t addr, int value) {
+    if (addr>=size) {
+        std::cerr<<"Adresa invalida: "<<addr<<"\n";
+        return;
+    }
+    cells[addr] = value;
+}
+std::ostream& operator<<(std::ostream& os, const Memory& mem) {
+    for (std::size_t i=0; i<mem.size; i++) {
+        if (mem.cells[i]!=0) {
+            os<<"["<<i<<"] "<<mem.cells[i]<<"\n";
+        }
+    }
+    return os;
+}
+
+Memory::Memory(const Memory& other):cells(new int[other.size]()),size(other.size) {
+    for (std::size_t i=0;i<size;i++) {
+        cells[i]=other.cells[i];
+    }
+}
+Memory& Memory::operator=(const Memory& other) {
+    if (this!=&other) {
+        return *this;
+    }
+    int* newcells = new int[other.size];
+    for (std::size_t i=0;i<other.size;i++) {
+        newcells[i]=other.cells[i];
+    }
+    delete[] cells;
+    cells=newcells;
+    size=other.size;
+    return *this;
+}
 
 int main() {
     Registers reg;
@@ -121,5 +179,15 @@ int main() {
     std::cout<<prog;
 
     std::cout<<static_cast<int>(ins.getOpCode())<<" "<<ins.getA()<<" "<<ins.getB()<<" "<<prog.at(0)<<" "<<prog.size()<<"\n";
+
+    Memory mem(8);
+    mem.write(0,15);
+    Memory copy=mem;
+    copy.write(0,15);
+    Memory other;
+    other=mem;
+    std::cout<<mem<<"\n"<<copy<<"\n"<<other<<"\n";
+    std::cout<<mem.read(0)<<"\n";
+
     return 0;
 }
