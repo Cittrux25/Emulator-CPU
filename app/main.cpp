@@ -2,10 +2,9 @@
 #include <string>
 #include <vector>
 #include <cstddef>
-//#include "registers.h"
-//#include "instruction.h"
-//#include "program.h"
-//#include "memory.h"
+#include <map>
+#include <fstream>
+#include <sstream>
 
 class Registers {
     int r[4];
@@ -30,9 +29,21 @@ Registers::Registers(int startPc) :pc(startPc) {
 }
 void Registers::incrementPc() {pc++;}
 
-int Registers::get(int i) const {return r[i];}
+int Registers::get(int i) const {
+    if (i<0||i>=4) {
+        std::cerr<<"Registru invalid :"<<i<<"\n";
+        return 0;
+    }
+    return r[i];
+}
 
-void Registers::set(int i, int v) {r[i]=v;}
+void Registers::set(int i, int v) {
+    if (i<0||i>=4) {
+        std::cerr<<"Registru invalid :"<<i<<"\n";
+        return;
+    }
+    r[i]=v;
+}
 
 std::ostream& operator<<(std::ostream& os, const Registers& reg) {
     for (int i=0; i<4 ;i++) os<<reg.get(i)<<" ";
@@ -82,14 +93,41 @@ std::ostream& operator<<(std::ostream& os, const Instructions& ins) {
 
 class Program {
     std::vector<Instructions> code;
+    void add(const Instructions& ins);
 public:
     Program()=default;
     explicit Program(const std::vector<Instructions> & instrs);
-    void add(const Instructions& ins);
+    void loadFromFile(const std::string& path);
     const Instructions& at(std::size_t line) const;
     std::size_t size() const;
     friend std::ostream& operator<<(std::ostream& os, const Program& prog);
 };
+void Program::loadFromFile(const std::string& path) {
+    std::ifstream in(path);
+    if(!in) {
+        std::cerr<<"Eroare: "<<path<<"\n";
+        return;
+    }
+    const std::map<std::string, OpCode> names ={
+        {"MOV", OpCode::MOV},{"ADD", OpCode::ADD},{"DEC", OpCode::DEC},
+        {"JNZ",OpCode::JNZ},{"LOAD", OpCode::LOAD},{"STORE", OpCode::STORE},
+        {"HALT", OpCode::HALT}};
+    std::string line;
+    while (std::getline(in, line)) {
+        std::istringstream word(line);
+        std::string name;
+        if (!(word >> name)) continue;
+        int x = 0;
+        int y = 0;
+        word >> x >> y;
+        auto it = names.find(name);
+        if (it == names.end()) {
+            std::cerr<<"Nu se paote deschide fisierul:" << name << "\n";
+            continue;
+        }
+        add(Instructions(it->second, x, y));
+    }
+}
 
 Program::Program(const std::vector<Instructions>& instrs):code(instrs){}
 void Program::add(const Instructions& ins) {
@@ -175,7 +213,7 @@ class Cpu {
     void execute (const Instructions& ins);
 
 public:
-    explicit Cpu(const Program& prog, std::size_t memorySize =16);
+    explicit Cpu(const Program& p, std::size_t memorySize =16);
     bool step();
     void run(std::size_t maxSteps = 1000) {
         std::size_t steps=0;
@@ -257,14 +295,7 @@ int main() {
     std::cout<<ins<<"\n";
 
     Program prog;
-    prog.add(Instructions(OpCode::MOV, 0, 5));
-    prog.add(Instructions(OpCode::MOV, 1, 0));
-    prog.add(Instructions(OpCode::ADD, 1, 0));
-    prog.add(Instructions(OpCode::DEC, 0));
-    prog.add(Instructions(OpCode::JNZ, 0, 2));
-    prog.add(Instructions(OpCode::STORE, 1, 0));
-    prog.add(Instructions(OpCode::LOAD, 2, 0));
-    prog.add(Instructions(OpCode::HALT));
+    prog.loadFromFile("assets/suma.asm");
     std::cout<<prog;
 
     std::cout<<static_cast<int>(ins.getOpCode())<<" "<<ins.getA()<<" "<<ins.getB()<<" "<<prog.at(0)<<" "<<prog.size()<<"\n";
