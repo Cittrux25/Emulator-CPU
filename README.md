@@ -1,6 +1,6 @@
-### **Mini CPU Emulator**
+### **MicroMind**
 
-Un procesor simulat în C++ care rulează programe scrise într-un limbaj de asamblare inventat.
+MicroMind e un procesor în miniatură, făcut în C++. Nu e unul real, ci unul simulat: are 4 registre, un program counter și puțină memorie, și poate rula programe scrise într-un mini limbaj de asamblare inventat de mine. Programul stă într-un fișier text (de exemplu `assets/suma.asm`), iar MicroMind îl citește și îl execută instrucțiune cu instrucțiune. Cele 7 instrucțiuni (`MOV`, `ADD`, `DEC`, `JNZ`, `LOAD`, `STORE`, `HALT`) sunt suficiente pentru bucle și pentru salvarea rezultatelor în memorie. În demo, MicroMind adună numerele de la 1 la 5 și păstrează rezultatul în memorie.
 
 | Laborant  | Link template                                |
 |-----------|----------------------------------------------|
@@ -41,20 +41,20 @@ O cerință nu se consideră îndeplinită dacă este realizată doar prin cod g
 #### Cerințe
 - [X] definirea a minim **3-4 clase** folosind compunere cu clasele definite de voi; moștenirile nu se iau în considerare aici
 - [x] constructori de inițializare cu parametri pentru fiecare clasă
-- [ ] pentru o aceeași (singură) clasă: constructor de copiere, `operator=` de copiere, destructor
+- [X] pentru o aceeași (singură) clasă: constructor de copiere, `operator=` de copiere, destructor
 <!-- - [ ] pentru o altă clasă: constructor de mutare, `operator=` de mutare, destructor -->
 <!-- - [ ] pentru o altă clasă: toate cele 5 funcții membru speciale -->
-- [ ] `operator<<` pentru **toate** clasele pentru afișare (`std::ostream`) folosind compunere de apeluri cu `operator<<`
-- [ ] cât mai multe `const` (unde este cazul) și funcții `private`
-- [ ] implementarea a minim 3 funcții membru publice pentru funcționalități netriviale specifice temei alese, dintre care cel puțin 1-2 funcții mai complexe
+- [X] `operator<<` pentru **toate** clasele pentru afișare (`std::ostream`) folosind compunere de apeluri cu `operator<<`
+- [X] cât mai multe `const` (unde este cazul) și funcții `private`
+- [X] implementarea a minim 3 funcții membru publice pentru funcționalități netriviale specifice temei alese, dintre care cel puțin 1-2 funcții mai complexe
   - nu doar citiri/afișări sau adăugat/șters elemente într-un/dintr-un vector
-- [ ] scenariu de utilizare **cu sens** a claselor definite:
+- [X] scenariu de utilizare **cu sens** a claselor definite:
   - crearea de obiecte și apelarea tuturor funcțiilor membru publice în main
   - vor fi adăugate în fișierul `tastatura.txt` DOAR exemple de date de intrare de la tastatură (dacă există) pentru a acoperi cât mai multe cazuri; dacă aveți nevoie de date din fișiere, creați alte fișiere separat
 - [ ] minim 52-60% din codul propriu să fie C++, adică să aveți mai mult cod decât ce e inclus în template; testele nu se pun, nu vă luați după procentajul din interfața web; detalii la ore
 - [x] `.gitattributes` configurat corect (nu trebuie făcute modificări aici)
 - [ ] tag de `git`: de exemplu `v0.1`
-- [ ] serviciu de integrare continuă (CI) cu **toate bifele**; exemplu: GitHub Actions
+- [X] serviciu de integrare continuă (CI) cu **toate bifele**; exemplu: GitHub Actions
 - [ ] code review #1 2 proiecte
 
 ## Tema 2
