@@ -1,6 +1,6 @@
-### **Mini CPU Emulator**
+### **MicroMind**
 
-Mini CPU Emulator este un procesor simulat scris în C++, care rulează programe scrise într-un limbaj de asamblare simplu, inventat pentru proiect. Procesorul are patru registre, un program counter și o memorie, iar programele se citesc din fișiere text (de exemplu assets/suma.asm) și se execută instrucțiune cu instrucțiune. Setul de instrucțiuni (MOV, ADD, DEC, JNZ, LOAD, STORE, HALT) permite bucle și acces la memorie. Programul demo calculează suma numerelor de la 1 la 5 și o salvează în memorie.
+MicroMind e un procesor în miniatură, făcut în C++. Nu e unul real, ci unul simulat: are 4 registre, un program counter și puțină memorie, și poate rula programe scrise într-un mini limbaj de asamblare inventat de mine. Programul stă într-un fișier text (de exemplu `assets/suma.asm`), iar MicroMind îl citește și îl execută instrucțiune cu instrucțiune. Cele 7 instrucțiuni (`MOV`, `ADD`, `DEC`, `JNZ`, `LOAD`, `STORE`, `HALT`) sunt suficiente pentru bucle și pentru salvarea rezultatelor în memorie. În demo, MicroMind adună numerele de la 1 la 5 și păstrează rezultatul în memorie.
 
 | Laborant  | Link template                                |
 |-----------|----------------------------------------------|
