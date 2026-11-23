@@ -1,6 +1,6 @@
 ### **Mini CPU Emulator**
 
-Un procesor simulat în C++ care rulează programe scrise într-un limbaj de asamblare inventat.
+Mini CPU Emulator este un procesor simulat scris în C++, care rulează programe scrise într-un limbaj de asamblare simplu, inventat pentru proiect. Procesorul are patru registre, un program counter și o memorie, iar programele se citesc din fișiere text (de exemplu assets/suma.asm) și se execută instrucțiune cu instrucțiune. Setul de instrucțiuni (MOV, ADD, DEC, JNZ, LOAD, STORE, HALT) permite bucle și acces la memorie. Programul demo calculează suma numerelor de la 1 la 5 și o salvează în memorie.
 
 | Laborant  | Link template                                |
 |-----------|----------------------------------------------|
@@ -41,20 +41,20 @@ O cerință nu se consideră îndeplinită dacă este realizată doar prin cod g
 #### Cerințe
 - [X] definirea a minim **3-4 clase** folosind compunere cu clasele definite de voi; moștenirile nu se iau în considerare aici
 - [x] constructori de inițializare cu parametri pentru fiecare clasă
-- [ ] pentru o aceeași (singură) clasă: constructor de copiere, `operator=` de copiere, destructor
+- [X] pentru o aceeași (singură) clasă: constructor de copiere, `operator=` de copiere, destructor
 <!-- - [ ] pentru o altă clasă: constructor de mutare, `operator=` de mutare, destructor -->
 <!-- - [ ] pentru o altă clasă: toate cele 5 funcții membru speciale -->
-- [ ] `operator<<` pentru **toate** clasele pentru afișare (`std::ostream`) folosind compunere de apeluri cu `operator<<`
-- [ ] cât mai multe `const` (unde este cazul) și funcții `private`
-- [ ] implementarea a minim 3 funcții membru publice pentru funcționalități netriviale specifice temei alese, dintre care cel puțin 1-2 funcții mai complexe
+- [X] `operator<<` pentru **toate** clasele pentru afișare (`std::ostream`) folosind compunere de apeluri cu `operator<<`
+- [X] cât mai multe `const` (unde este cazul) și funcții `private`
+- [X] implementarea a minim 3 funcții membru publice pentru funcționalități netriviale specifice temei alese, dintre care cel puțin 1-2 funcții mai complexe
   - nu doar citiri/afișări sau adăugat/șters elemente într-un/dintr-un vector
-- [ ] scenariu de utilizare **cu sens** a claselor definite:
+- [X] scenariu de utilizare **cu sens** a claselor definite:
   - crearea de obiecte și apelarea tuturor funcțiilor membru publice în main
   - vor fi adăugate în fișierul `tastatura.txt` DOAR exemple de date de intrare de la tastatură (dacă există) pentru a acoperi cât mai multe cazuri; dacă aveți nevoie de date din fișiere, creați alte fișiere separat
 - [ ] minim 52-60% din codul propriu să fie C++, adică să aveți mai mult cod decât ce e inclus în template; testele nu se pun, nu vă luați după procentajul din interfața web; detalii la ore
 - [x] `.gitattributes` configurat corect (nu trebuie făcute modificări aici)
 - [ ] tag de `git`: de exemplu `v0.1`
-- [ ] serviciu de integrare continuă (CI) cu **toate bifele**; exemplu: GitHub Actions
+- [X] serviciu de integrare continuă (CI) cu **toate bifele**; exemplu: GitHub Actions
 - [ ] code review #1 2 proiecte
 
 ## Tema 2
