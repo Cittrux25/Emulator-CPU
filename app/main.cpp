@@ -105,7 +105,7 @@ public:
 void Program::loadFromFile(const std::string& path) {
     std::ifstream in(path);
     if(!in) {
-        std::cerr<<"Eroare: "<<path<<"\n";
+        std::cerr<<"Nu am gasit fisierul :"<<path<<"\n";
         return;
     }
     const std::map<std::string, OpCode> names ={
@@ -122,7 +122,7 @@ void Program::loadFromFile(const std::string& path) {
         word >> x >> y;
         auto it = names.find(name);
         if (it == names.end()) {
-            std::cerr<<"Nu se paote deschide fisierul:" << name << "\n";
+            std::cerr<<"Instructiune gresita :" << name << "\n";
             continue;
         }
         add(Instructions(it->second, x, y));
@@ -314,6 +314,9 @@ int main() {
     Memory other;
     other = m;
     std::cout << m << copy << other;
+    std::cout<<m.read(0)<<"\n";
+    Program mini(std::vector<Instructions>{Instructions(OpCode::MOV, 3, 7),Instructions(OpCode::HALT)});
+    std::cout<<mini;
 
     return 0;
 }
