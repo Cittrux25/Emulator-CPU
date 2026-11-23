@@ -318,5 +318,11 @@ int main() {
     Program mini(std::vector<Instructions>{Instructions(OpCode::MOV, 3, 7),Instructions(OpCode::HALT)});
     std::cout<<mini;
 
+    Program mul;
+    mul.loadFromFile("assets/inmultire.asm");
+    Cpu cpuMul(mul);
+    cpuMul.run();
+    std::cout<<cpuMul<<"\n";
+
     return 0;
 }
