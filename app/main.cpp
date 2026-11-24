@@ -133,6 +133,7 @@ Program::Program(const std::vector<Instructions>& instrs):code(instrs){}
 void Program::add(const Instructions& ins) {
     code.push_back(ins);
 }
+//test pentru stefan
 const Instructions& Program::at(std::size_t line) const {
     return code.at(line);
 }
